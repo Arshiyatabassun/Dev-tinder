@@ -34,3 +34,14 @@ reading the dynamic routes
 - diffrence between app.use n app.all?
 - write a dummy Auth middleware for admin
 - write a dummy Auth middleware for  all user except /user/login
+
+
+- create a free cluster on MongoDB official website (Mongo Atlas)
+- Install MONGOOSE library
+- Connect Your Application to database <conncetion URL> /devTinder
+- call the connectDB function and connect the database before starting application on port 7777
+- creating a userSchema and userModel
+- create a POST /signup API to add the data to the database
+- Push some documents using an API calls from postman.
+- Error handling using try and catch
+
