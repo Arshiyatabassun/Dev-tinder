@@ -44,4 +44,5 @@ reading the dynamic routes
 - create a POST /signup API to add the data to the database
 - Push some documents using an API calls from postman.
 - Error handling using try and catch
+- difference b/w JsObject and JSON
 

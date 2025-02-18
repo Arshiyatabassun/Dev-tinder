@@ -1,6 +1,7 @@
 const express =require('express')
 const connectDB=require("./config/database")
 const User=require("./models/user")
+
 const app =express()
 
 
@@ -122,15 +123,19 @@ const app =express()
 //     res.send("hello from Arshiya")
 // })
 
+app.use(express.json())
 
+// console.log(req.body)
 app.post("/signup",async(req,res)=>{
     //creating an instance of new user model
-    const user= new User({
-        firstName:"Mohsin",
-        lastName:"mohammed",
-        emailId:"mahi123@gmail.com",
-        password:"mohsin@1232",
-    }); 
+    // const user= new User({
+    //     firstName:"izhan",
+    //     lastName:"mohammed",
+    //     emailId:"izhan123@gmail.com",
+    //     password:"izzu@1232",
+    // }); 
+
+    const user =new User(req.body)
 
     try{
     await  user.save()
