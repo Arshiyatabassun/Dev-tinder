@@ -44,5 +44,21 @@ reading the dynamic routes
 - create a POST /signup API to add the data to the database
 - Push some documents using an API calls from postman.
 - Error handling using try and catch
+
+
 - difference b/w JsObject and JSON
+- Add express.json middlewear to your app
+- Make your signup API dynamic to recive the data from the end user
+- User.findOne() with duplicate emailIds which object returns
+- API-Get user by email
+- API-feed API  Get/feed get all the users fromm the database
+- API-Get the user by ID
+- create a Delete user Api
+- Difference between patch and put
+- API- Update a user
+- Explore the Mongoose documentation for the Model Methods
+- what are options in a modole.findOneAndUpdate method read more about it.
+-  API- update the user with  emailId
+
+ 
 
