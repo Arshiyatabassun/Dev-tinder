@@ -126,26 +126,97 @@ const app =express()
 app.use(express.json())
 
 // console.log(req.body)
-app.post("/signup",async(req,res)=>{
-    //creating an instance of new user model
-    // const user= new User({
-    //     firstName:"izhan",
-    //     lastName:"mohammed",
-    //     emailId:"izhan123@gmail.com",
-    //     password:"izzu@1232",
-    // }); 
+// app.post("/signup",async(req,res)=>{
+//     //creating an instance of new user model
+//     // const user= new User({
+//     //     firstName:"izhan",
+//     //     lastName:"mohammed",
+//     //     emailId:"izhan123@gmail.com",
+//     //     password:"izzu@1232",
+//     // }); 
 
-    const user =new User(req.body)
+//     const user =new User(req.body)
 
-    try{
-    await  user.save()
-    res.send("user added successfully")
+//     try{
+//     await  user.save()
+//     res.send("user added successfully")
+// }catch(err){
+//     res.status(400).send("error saving the user:" + err.message)
+// }
+
+// API- get all the User by email
+// app.get("/user",async(req,res)=>{
+//     const userEmail =req.body.emailId;
+//     try{
+//         // const user= await User.find({})//give the all user document
+//         const user =await User.find({emailId:userEmail})
+//         res.send(user)
+//     }catch(err){
+//      res.status(404).send("somthing went wrong")
+//     }
+// })
+// })
+
+///Feed API-GET/feed-get all the users from the database
+// app.get("/feed",async(req,res)=>{
+//  const usersEmaild =req.body.emailId;
+//     try{
+//         const user1 =await User.find({emailId:usersEmaild})
+//         if(user1.length === 0){
+//           res.status(404).send('user not found')
+//         }
+//           else{
+
+//               res.send(user1)
+//           }
+
+//         }catch(err){
+//    res.status(400).send('somthing went wrong')
+//     }
+// })
+
+//feed API-get the users by ID
+// app.get("/feed",async(req,res)=>{
+//     const _id =req.body;
+
+//     try{
+//         console.log(_id)
+//         const user =await User.findById(_id)
+//         res.send(user)
+
+//     }catch(err){
+//    res.status(400).send("usersid is not found")
+//     }
+// })
+
+//Delete a user from the database
+app.delete("/feed",async(req,res)=>{
+ const userId =req.body.userId;
+
+ try{
+    const user=await User.findByIdAndDelete({_id:userId})
+    // const user = await User.findByIdAndDelete(userId)
+    res.send("user deleted successfully")
+ }catch{
+    res.status(404).send('somthing went wrong')
+ }
+})
+
+
+//Update the Api
+
+app.patch("/user",async(req,res)=>{
+  const userId = req.body.userId;
+    const data =req.body
+
+
+
+try{
+    await User.findByIdAndUpdate({_id:userId},data)
+    res.send("user updated succeefully")
 }catch(err){
-    res.status(400).send("error saving the user:" + err.message)
+    res.status(400).send("somthing went wrong")
 }
-
-
-
 })
 connectDB().then(()=>{
 
