@@ -126,23 +126,24 @@ const app =express()
 app.use(express.json())
 
 // console.log(req.body)
-// app.post("/signup",async(req,res)=>{
-//     //creating an instance of new user model
-//     // const user= new User({
-//     //     firstName:"izhan",
-//     //     lastName:"mohammed",
-//     //     emailId:"izhan123@gmail.com",
-//     //     password:"izzu@1232",
-//     // }); 
+app.post("/signup",async(req,res)=>{
+    //creating an instance of new user model
+    // const user= new User({
+    //     firstName:"izhan",
+    //     lastName:"mohammed",
+    //     emailId:"izhan123@gmail.com",
+    //     password:"izzu@1232",
+    // }); 
 
-//     const user =new User(req.body)
+    const user =new User(req.body)
 
-//     try{
-//     await  user.save()
-//     res.send("user added successfully")
-// }catch(err){
-//     res.status(400).send("error saving the user:" + err.message)
-// }
+    try{
+    await  user.save()
+    res.send("user added successfully")
+}catch(err){
+    res.status(400).send("error saving the user:" + err.message)
+}
+})
 
 // API- get all the User by email
 // app.get("/user",async(req,res)=>{
@@ -209,13 +210,14 @@ app.patch("/user",async(req,res)=>{
   const userId = req.body.userId;
     const data =req.body
 
-
-
 try{
-    await User.findByIdAndUpdate({_id:userId},data)
+    await User.findByIdAndUpdate({_id:userId},data),{
+
+        runValidators:true
+    }
     res.send("user updated succeefully")
 }catch(err){
-    res.status(400).send("somthing went wrong")
+    res.status(400).send("UPDATE FAILED:"+ err.message)
 }
 })
 connectDB().then(()=>{
