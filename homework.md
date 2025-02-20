@@ -66,6 +66,9 @@ reading the dynamic routes
 - create a custom validate function for gender
 - Improve the DB schema put all appropriate validations on each field in schema
 - add the timestamp to the user schema
-
- 
+- add API Level Validations on PACTH  request and signup POST Api
+- DATA Sanitaizing -add API validation for each field.
+- Install validators-npm i validator
+- Explore validator library validation function and use validator functions for password, emailId,photoUrl
+- NEVER TRUST req.body
 

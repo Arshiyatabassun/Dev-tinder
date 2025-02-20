@@ -206,13 +206,25 @@ app.delete("/feed",async(req,res)=>{
 
 //Update the Api
 
-app.patch("/user",async(req,res)=>{
-  const userId = req.body.userId;
+// app.patch("/user",async(req,res)=>{
+    // const userId = req.body.userId;
+    // :userId-passing the userid in the postman like this
+    app.patch("/user/:userId",async(req,res)=>{
+    const userId = req.params?.userId;
     const data =req.body
 
 try{
+    const ALLOWED_UPDATES =["gender","photoUrl","about","age","skills"]
+    const isUpdateAllowed =Object.keys(data).every((k)=>
+        ALLOWED_UPDATES.includes(k)
+    )
+    if(!isUpdateAllowed){
+        throw new Error("update not allowed")
+    }
+    if(data?.skills.length> 10){
+        throw new Error("skills canot be morethan 10")
+    }
     await User.findByIdAndUpdate({_id:userId},data),{
-
         runValidators:true
     }
     res.send("user updated succeefully")
