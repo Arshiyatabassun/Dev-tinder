@@ -75,3 +75,6 @@ reading the dynamic routes
 - Install bcrypt package
 - create a PasswordHash using bcrypt.hash and save the user with encrupted password
 
+- create login API
+- compare the passwords and throw err if email or passwrd is invalid
+
