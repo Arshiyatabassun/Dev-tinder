@@ -71,4 +71,7 @@ reading the dynamic routes
 - Install validators-npm i validator
 - Explore validator library validation function and use validator functions for password, emailId,photoUrl
 - NEVER TRUST req.body
+- Validate data4 in signup API
+- Install bcrypt package
+- create a PasswordHash using bcrypt.hash and save the user with encrupted password
 
