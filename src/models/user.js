@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true,
         validate(value){
-            if(validator.isStrongPassword(value)){
+            if(!validator.isStrongPassword(value)){
                 throw new Errow("Enter stong password" + value)
             }
         }
@@ -52,7 +52,7 @@ const userSchema = new mongoose.Schema({
         type:String,
         default:"https://www.shutterstock.com/shutterstock/photos/1258445440/display_1500/stock-vector-person-gray-photo-placeholder-man-in-t-shirt-on-white-background-1258445440.jpg",
         validate(value){
-            if(validator.isURL(value)){
+            if(!validator.isURL(value)){
                 throw new Errow("invalid photourl" + value)
             }
         }

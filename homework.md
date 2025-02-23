@@ -78,3 +78,9 @@ reading the dynamic routes
 - create login API
 - compare the passwords and throw err if email or passwrd is invalid
 
+- install the cookie parser
+- just send a dummy cookie to the user
+- create GET/profile API and check if u get the cookie baack
+- install json webtoken(JWT)
+- In  login API after email and password validation,create a JWT Token and send it to the user in cookies
+- read the cookies inside your profile API and find the loggedin user

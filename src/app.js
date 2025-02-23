@@ -3,8 +3,14 @@ const connectDB = require("./config/database");
 const User = require("./models/user");
 const { validateSignUpData } = require("./utils/validations");
 const bcrypt = require("bcrypt");
+const cookies = require("cookie-parser");
+const cookieParser = require("cookie-parser");
+const jwt =require("jsonwebtoken");
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
+
+
 
 // app.use("/hello/2",(req,res)=>{
 //     res.send("Abracadabara!!!")
@@ -148,25 +154,57 @@ app.post("/signup", async (req, res) => {
     res.status(400).send("error saving the user:" + err.message);
   }
 });
+app.get("/profile",async(req,res)=>{
+    //creating a cookie
+    try{
+    const cookies = req.cookies;
+    const {token}= cookies;
+    console.log(cookies)
+    if(!token){
+        throw new Error('Invalid token')
+    }
 
+    //validate the token
+     const decodedMessage =  await jwt.verify(token,"DEV@Tinder$790")
+     console.log(decodedMessage);
+     const {_id}=decodedMessage;
+     console.log("loggedin user is:"+ _id)
+
+     const user = await User.findById(_id)
+     if(!user){
+        throw new Error("User doesnot exits")
+     }
+    res.send(user)
+    }catch(err){
+        res.status(400).send("user doesnot exits")
+    }
+})
 app.post("/login", async (req, res) => {
   try {
     const { emailId, password } = req.body;
 
     const user = await User.findOne({ emailId: emailId });
     if (!user) {
-      throw new Error("enter the emailId");
+    //   throw new Error("enter the emailId");
+      throw new Error("Invalid credentials");
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
+    console.log(isPasswordValid)
     if (isPasswordValid) {
-      res.send("Login succefull!!!!!!!!!");
+
+      //create the JWT token
+   const token =await jwt.sign({_id:user._id},"DEV@Tinder$790")
+   console.log(token)
+   // add the token to the cookies and send response back to the user
+  res.cookie("token",token);
+      res.send("Login succefull!!!!!!!!!")
     } else {
-       throw new Error ("enter strong passwerd");
-    //   throw new Error("Invalid credentials");
+    //    throw new Error ("enter strong passwerd");
+      throw new Error("Invalid credentials");
     }
   } catch (err) {
-    res.status(400).send("Err" + err.message);
+    res.status(400).send("Err: " + err.message);
   }
 });
 // API- get all the User by email
