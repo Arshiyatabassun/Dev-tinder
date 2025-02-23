@@ -83,4 +83,18 @@ reading the dynamic routes
 - create GET/profile API and check if u get the cookie baack
 - install json webtoken(JWT)
 - In  login API after email and password validation,create a JWT Token and send it to the user in cookies
-- read the cookies inside your profile API and find the loggedin user
+- read the cookies inside your profile API and find the loggedin user.
+
+- userAuth middleware
+- add the userAuth middleware in the profile and  a new sendconncetionRequest API
+- set the expiry of JWT token and cookies for 7days.
+- create userSchema methods to JWT()
+- create userchema method to comparepassword (passwordinputByUser)
+
+- Explore the tinder APIs
+- Create a list of all APIS that you explore in Dev tinder
+- Group the multiple routes under respective routers.
+- read the documentation for Express.Router
+-  create routes router for managing auth,profile,request router.
+- create authRouter,profileRouter,requestRouter.
+- import these routes in app.js

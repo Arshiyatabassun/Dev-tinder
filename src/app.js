@@ -1,16 +1,26 @@
 const express = require("express");
 const connectDB = require("./config/database");
-const User = require("./models/user");
-const { validateSignUpData } = require("./utils/validations");
-const bcrypt = require("bcrypt");
+// const User = require("./models/user");
 const cookies = require("cookie-parser");
 const cookieParser = require("cookie-parser");
 const jwt =require("jsonwebtoken");
+
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
 
+const auth =require("./routes/auth")
+const profile= require("./routes/profile")
+const requests = require("./routes/requests");
+const authRouter = require("./routes/auth");
+const profileRouter = require("./routes/profile");
+const requestRouter = require("./routes/requests");
+
+
+app.use("/",authRouter)
+app.use('/',profileRouter)
+app.use('/',requestRouter)
 
 // app.use("/hello/2",(req,res)=>{
 //     res.send("Abracadabara!!!")
@@ -125,88 +135,10 @@ app.use(cookieParser());
 // })
 
 // console.log(req.body)
-app.post("/signup", async (req, res) => {
-  //creating an instance of new user model
-  // const user= new User({
-  //     firstName:"izhan",
-  //     lastName:"mohammed",
-  //     emailId:"izhan123@gmail.com",
-  //     password:"izzu@1232",
-  // });
-  try {
-    // validation of data
-    validateSignUpData(req);
 
-    const { firstName, lastName, emailId, password } = req.body;
-    //Encrypt the password -$2b$10$Qt8gt0xKc6SWWFU4NgLL/uECJ4y.b7hBmLm3Hmien0wx2msL0FLD2
-    const passwordHash = await bcrypt.hash(password, 10);
-    console.log(passwordHash);
 
-    const user = new User({
-      firstName,
-      lastName,
-      emailId,
-      password: passwordHash,
-    });
-    await user.save();
-    res.send("user added successfully");
-  } catch (err) {
-    res.status(400).send("error saving the user:" + err.message);
-  }
-});
-app.get("/profile",async(req,res)=>{
-    //creating a cookie
-    try{
-    const cookies = req.cookies;
-    const {token}= cookies;
-    console.log(cookies)
-    if(!token){
-        throw new Error('Invalid token')
-    }
 
-    //validate the token
-     const decodedMessage =  await jwt.verify(token,"DEV@Tinder$790")
-     console.log(decodedMessage);
-     const {_id}=decodedMessage;
-     console.log("loggedin user is:"+ _id)
 
-     const user = await User.findById(_id)
-     if(!user){
-        throw new Error("User doesnot exits")
-     }
-    res.send(user)
-    }catch(err){
-        res.status(400).send("user doesnot exits")
-    }
-})
-app.post("/login", async (req, res) => {
-  try {
-    const { emailId, password } = req.body;
-
-    const user = await User.findOne({ emailId: emailId });
-    if (!user) {
-    //   throw new Error("enter the emailId");
-      throw new Error("Invalid credentials");
-    }
-
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    console.log(isPasswordValid)
-    if (isPasswordValid) {
-
-      //create the JWT token
-   const token =await jwt.sign({_id:user._id},"DEV@Tinder$790")
-   console.log(token)
-   // add the token to the cookies and send response back to the user
-  res.cookie("token",token);
-      res.send("Login succefull!!!!!!!!!")
-    } else {
-    //    throw new Error ("enter strong passwerd");
-      throw new Error("Invalid credentials");
-    }
-  } catch (err) {
-    res.status(400).send("Err: " + err.message);
-  }
-});
 // API- get all the User by email
 // app.get("/user",async(req,res)=>{
 //     const userEmail =req.body.emailId;
@@ -253,17 +185,17 @@ app.post("/login", async (req, res) => {
 // })
 
 //Delete a user from the database
-app.delete("/feed", async (req, res) => {
-  const userId = req.body.userId;
+// app.delete("/feed", async (req, res) => {
+//   const userId = req.body.userId;
 
-  try {
-    const user = await User.findByIdAndDelete({ _id: userId });
-    // const user = await User.findByIdAndDelete(userId)
-    res.send("user deleted successfully");
-  } catch {
-    res.status(404).send("somthing went wrong");
-  }
-});
+//   try {
+//     const user = await User.findByIdAndDelete({ _id: userId });
+//     // const user = await User.findByIdAndDelete(userId)
+//     res.send("user deleted successfully");
+//   } catch {
+//     res.status(404).send("somthing went wrong");
+//   }
+// });
 
 //Update the Api
 
