@@ -98,3 +98,8 @@ reading the dynamic routes
 -  create routes router for managing auth,profile,request router.
 - create authRouter,profileRouter,requestRouter.
 - import these routes in app.js
+
+- create post/logout API
+-  create PATCH/profile/edit API
+- create PATCH/profile/password API =>forget API
+- Make you valide all data in POST PATCH API'S
