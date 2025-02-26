@@ -7,7 +7,12 @@
   # profileRouter
   - GET/profile/view
   - PATCH/profile/edit
-  - PATCH/profile/password
-  
+  - PATCH/profile/password =>forget password
+
+  ## connectionRequestRouter
+  POST/request/send/interested/:userId
+  POST/request/send/ignored/:userId
+
+
 
 

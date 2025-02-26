@@ -103,3 +103,14 @@ reading the dynamic routes
 -  create PATCH/profile/edit API
 - create PATCH/profile/password API =>forget API
 - Make you valide all data in POST PATCH API'S
+
+- create connection request SCHEMA
+- Send connection request API
+- proper validation of data
+- Think aobout the corner cases
+- $or,$and query in mongoose
+- schema.pre("save") function
+- Read more about indexes in mongoDB
+- Why do we need indexes in DB?
+- what are the advantageds and disadvantages in creating?
+- Always think of corner cases
