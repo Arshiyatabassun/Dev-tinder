@@ -120,3 +120,6 @@ reading the dynamic routes
 - Read about ref & populate 
 - create GET /user/requests/recieved with all the check
 - create GET /user/connections
+
+- logic GET /feed API
+- explore the $nin,$ne,$and and other query operators
