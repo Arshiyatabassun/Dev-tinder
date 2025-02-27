@@ -57,6 +57,13 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
 userRouter.get("/feed", userAuth, async (req, res) => {
   try {
 
+    const page =parseInt(req.query.page) || 1
+    let limit=parseInt(req.query.limit)|| 10
+
+    limit =limit > 50 ?50 :limit
+
+    const skip =(page -1) * limit;
+
     //user should see all the connection request except
     //0.his own caard
     //1.his connection
@@ -74,15 +81,15 @@ userRouter.get("/feed", userAuth, async (req, res) => {
         hideUsersFromFeed.add(req.fromUserId.toString())
         hideUsersFromFeed.add(req.toUserId.toString())
     });
-    console.log(hideUsersFromFeed)
-
+    // console.log(hideUsersFromFeed)
+//finding all the users
     const users = await User.find({
       $and: [
         { _id: { $nin: Array.from(hideUsersFromFeed) } },
         { _id: { $ne: loggedInuser._id } },
       ],
-    }).select(USER_SAFE_DATA);
-    console.log(connectionRequest)
+    }).select(USER_SAFE_DATA).skip(skip).limit(limit)
+    // console.log(connectionRequest)
     res.send(users);
   } catch (err) {
     res.json({ message: err.message });

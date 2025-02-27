@@ -123,3 +123,12 @@ reading the dynamic routes
 
 - logic GET /feed API
 - explore the $nin,$ne,$and and other query operators
+
+- pagination
+ -  NOTES
+- .skip() & .limit() //imporant functions in pagination
+- /feed?page=1&limit=10 ==> give the first 10 users 1-10 => .skip(0)& .limit(10)
+- /feed?page=2&limit=10 ==>  11-20 => .skip(10)& .limit(10)
+- /feed?page=3&limit=10 ==>  21-30 => .skip(20)& .limit(10)
+- skip formula:(page -1) *limit;
+ - // ex:pageno=3=>(3-1)*10 =2*10=20
