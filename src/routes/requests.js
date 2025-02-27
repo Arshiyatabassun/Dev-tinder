@@ -63,6 +63,51 @@ if(existingConnectionRequest){
 }
 })
 
+requestRouter.post("/request/review/:status/:requestId",userAuth,async(req,res)=>{
+//Arshiya ==>elon
+// loggedIn ===touserId
+// status==="interested"
+//requestId should be valid
+
+try{
+    const loggedInuser =req.user;
+    const {status,requestId}=req.params;
+   
+    const allowedstatus =["accepted","rejected"]
+    if(!allowedstatus.includes(status)){
+        res.status(400).json({
+            message:"Status not allowed "
+        })
+    }
+
+    const connectionRequest= await  ConnectionRequest.findOne({
+       _id:requestId,
+       toUserId:loggedInuser._id,
+       status:"interested"
+      
+    })
+
+    if(!connectionRequest){
+        res.status(404).json({
+            message:"Connection request not found"
+        })
+    }
+  //modify the status
+    connectionRequest.status=status;
+
+    const data = await connectionRequest.save()
+    
+    res.json({
+        message:"Connection request" +status, data
+    })
+
+
+}catch(err){
+    res.status(404).send("ERR:",err.message)
+}
+
+})
+
 
 
 module.exports = requestRouter;
