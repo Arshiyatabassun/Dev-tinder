@@ -116,3 +116,7 @@ reading the dynamic routes
 - Always think of corner cases
 
 - write code for proper validations POST /request/review/:status/:requestId
+- Thought process -POST vs GET
+- Read about ref & populate 
+- create GET /user/requests/recieved with all the check
+- create GET /user/connections

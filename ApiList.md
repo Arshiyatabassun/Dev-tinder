@@ -19,6 +19,10 @@
   <!-- POST/request/review/accepted/:requestId
   POST/request/review/rejected/:requestId -->
 
+  ## userRouter
+  - GET /user/connections/recieved
+  - GET /user/requests
+  - GET /user/feed / gets you the profiles of other users on platforms
 
 
-
+status:ignored interested accepted rejected
