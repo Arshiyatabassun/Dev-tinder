@@ -4,8 +4,16 @@ const connectDB = require("./config/database");
 const cookies = require("cookie-parser");
 const cookieParser = require("cookie-parser");
 const jwt =require("jsonwebtoken");
-
+const cors = require("cors")
 const app = express();
+
+
+app.use(cors(
+{
+  origin:"http://localhost:5173",
+  credentials:true,
+}
+))
 app.use(express.json());
 app.use(cookieParser());
 

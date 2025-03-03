@@ -56,7 +56,8 @@ authRouter.post("/signup", async (req, res) => {
   //    console.log(token)
      // add the token to the cookies and send response back to the user
     res.cookie("token",token);
-        res.send("Login successfull!!!!!!!!!")
+        // res.send("Login successfull!!!!!!!!!")
+        res.send(user)
       } else {
       //    throw new Error ("enter strong passwerd");
         throw new Error("Invalid credentials");
