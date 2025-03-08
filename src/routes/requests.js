@@ -75,7 +75,7 @@ try{
    
     const allowedstatus =["accepted","rejected"]
     if(!allowedstatus.includes(status)){
-        res.status(400).json({
+      return  res.status(400).json({
             message:"Status not allowed "
         })
     }
@@ -83,17 +83,17 @@ try{
     const connectionRequest= await  ConnectionRequest.findOne({
        _id:requestId,
        toUserId:loggedInuser._id,
-       status:"interested"
+       status:"interested",
       
     })
 
     if(!connectionRequest){
-        res.status(404).json({
+     return   res.status(404).json({
             message:"Connection request not found"
         })
     }
   //modify the status
-    connectionRequest.status=status;
+    connectionRequest.status =status;
 
     const data = await connectionRequest.save()
     
