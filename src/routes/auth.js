@@ -28,9 +28,14 @@ authRouter.post("/signup", async (req, res) => {
         lastName,
         emailId,
         password: passwordHash,
+        
       });
-      await user.save();
-      res.send("user added successfully");
+   
+    
+      const savedUser = await user.save();
+      const token = await savedUser.getJWT();
+      res.cookie("token",token,{expires:new Date(Date.now() + 8*3600000)})
+      res.json({message:"user added successfully", data:savedUser});
     } catch (err) {
       res.status(400).send("error saving the user:" + err.message);
     }
@@ -56,8 +61,8 @@ authRouter.post("/signup", async (req, res) => {
   //    console.log(token)
      // add the token to the cookies and send response back to the user
     res.cookie("token",token);
-        // res.send("Login successfull!!!!!!!!!")
-        res.send(user)
+        res.send("Login successfull!!!!!!!!!")
+        // res.send(user)
       } else {
       //    throw new Error ("enter strong passwerd");
         throw new Error("Invalid credentials");
